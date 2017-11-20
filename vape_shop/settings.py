@@ -324,6 +324,9 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     # "mezzanine.accounts",
     # "mezzanine.mobile",
+
+    #Custom apps
+    'product_api',
 )
 
 

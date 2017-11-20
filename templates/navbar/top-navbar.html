@@ -1,0 +1,51 @@
+{% load pages_tags mezzanine_tags i18n staticfiles %}
+
+<div class="header">
+    <div class="container">
+        <div class="logo">
+            <a href="{% url "home" %}">
+                <h1>LOGO</h1>
+            </a>
+        </div>
+        
+        <!-- Menu Hamburger (Default) -->
+        {% include 'shop/includes/user_panel_top.html' %}
+        <button class="main-menu-indicator" id="open-button">
+            <span class="line"></span>
+        </button>
+        
+        <div class="menu-wrap" style="background-image: url(img/nav_bg.jpg)">
+            <div class="menu-content">
+                <div class="navigation">
+                    <span class="pe-7s-close close-menu" id="close-button"></span>
+                    <div class="search-wrap js-ui-search">
+                        <input class="js-ui-text" type="text" placeholder="Search Here...">
+                        <span class="eks js-ui-close"></span>
+                    </div>
+                </div>
+                {% block navbar_dropdown_menu %}{% page_menu "pages/menus/top-right-menu.html" %}{% endblock%}
+
+                <div class="hidden-xs">
+                    <div class="menu-social-media">
+                        <ul>
+                           <li><a href="#"><i class="iconmoon-facebook"></i></a></li>
+                           <li><a href="#"><i class="iconmoon-twitter"></i></a></li>
+                           <li><a href="#"><i class="iconmoon-dribbble3"></i></a></li>
+                           <li><a href="#"><i class="iconmoon-pinterest"></i></a></li>
+                           <li><a href="#"><i class="iconmoon-linkedin2"></i></a></li>
+                        </ul>
+                    </div>
+
+                    <div class="menu-information">
+                        <ul>
+                            <li><span>T:</span> 003 124 115</li>
+                            <li><span>E:</span> info@mail.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End of Menu Hamburger (Default) -->
+
+    </div>
+</div>

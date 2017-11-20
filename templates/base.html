@@ -19,6 +19,42 @@
 <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
 <link rel="stylesheet" href="{% static "css/mezzanine.css" %}">
 <link rel="stylesheet" href="{% static "css/bootstrap-theme.css" %}">
+
+ <!-- Google Web Font -->
+<link href='https://fonts.googleapis.com/css?family=Ubuntu:300,400,500,700' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Lekton:400,700,400italic' rel='stylesheet' type='text/css'>
+
+<!-- OWL Carousel -->
+<link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
+<link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
+
+<!--  Slider -->
+<link rel="stylesheet" href="{% static 'css/jquery.kenburnsy.css' %}">
+
+<!-- Animate -->
+<link rel="stylesheet" href="{% static 'css/animate.css' %}">
+
+<!-- Web Icons Font -->
+<link rel="stylesheet" href="{% static 'css/pe-icon-7-stroke.css' %}">
+<link rel="stylesheet" href="{% static 'css/iconmoon.css' %}">
+<link rel="stylesheet" href="{% static 'css/et-line.css' %}">
+<link rel="stylesheet" href="{% static 'css/ionicons.css' %}">
+
+<!-- Magnific PopUp -->
+<link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+
+<!-- Tabs -->
+<link rel="stylesheet" href="{% static 'css/tabs.css' %}">
+<link rel="stylesheet" href="{% static 'css/tabstyles.css' %}">
+
+<!-- Loader Style -->
+<link rel="stylesheet" href="{% static 'css/loader-1.css' %}">
+
+<!-- Custom Styles -->
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom.css' %}">
+
 {% if LANGUAGE_BIDI %}
 <link rel="stylesheet" href="{% static "css/bootstrap-rtl.css" %}">
 {% endif %}
@@ -31,46 +67,14 @@
 {% block extra_css %}{% endblock %}
 {% endcompress %}
 
-{% compress js %}
-<script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
-<script src="{% static "js/bootstrap.js" %}"></script>
-<script src="{% static "js/bootstrap-extras.js" %}"></script>
-{% block extra_js %}{% endblock %}
-{% endcompress %}
-
-<!--[if lt IE 9]>
-<script src="{% static "js/html5shiv.js" %}"></script>
-<script src="{% static "js/respond.min.js" %}"></script>
-<![endif]-->
-
 {% block extra_head %}{% endblock %}
 </head>
 
 <body id="{% block body_id %}body{% endblock %}">
 
-<div class="navbar navbar-default navbar-fixed-top" role="navigation">
-<div class="container">
-<div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">{% trans "Toggle Navigation" %}</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-    </button>
-    {% block navbar_title %}
-    {% if settings.SITE_TITLE %}<a class="navbar-brand" href="/">{{ settings.SITE_TITLE }}</a>{% endif %}
-    {% if settings.SITE_TAGLINE %}<p class="navbar-text visible-lg">{{ settings.SITE_TAGLINE }}</p>{% endif %}
-    {% endblock%}
-</div>
-<div class="navbar-collapse collapse">
-    {% block navbar_search_form %}{% search_form "all" %}{% endblock %}
-    {% block navbar_dropdown_menu %}{% page_menu "pages/menus/dropdown.html" %}{% endblock%}
-</div>
-</div>
-</div>
+{% include 'navbar/top-navbar.html' %}
 
-<div class="container">
-
+<div class="container main-top">
 {% nevercache %}
 {% if messages %}
 <div class="messages">
@@ -85,28 +89,31 @@
 {% endnevercache %}
 
 <h1>{% block title %}{% endblock %}</h1>
-
+<hr>
+<!--
 <ul class="breadcrumb">
 {% spaceless %}
 {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
 {% endspaceless %}
 </ul>
-
+-->
 </div>
 
 <div class="container">
 <div class="row">
 
+<!--
 <div class="col-md-2 left">
     {% block left_panel %}
     <div class="panel panel-default tree">{% page_menu "pages/menus/tree.html" %}</div>
     {% endblock %}
 </div>
+-->
 
-<div class="col-md-7 middle">
+<div class="col-md-12 middle">
     {% block main %}{% endblock %}
 </div>
-
+<!--
 <div class="col-md-3 right">
     {% nevercache %}
     {% include "includes/language_selector.html" %}
@@ -122,7 +129,7 @@
     </div>
     </div>
 </div>
-
+-->
 </div>
 </div>
 
@@ -147,6 +154,39 @@
 </div>
 </div>
 </footer>
+
+<a href="javascript:void(0)" class="scroll-top" id="scroll-top"><i class="pe-7s-angle-up"></i></a>
+
+{% compress js %}
+<script src="{% static "mezzanine/js/"|add:settings.JQUERY_FILENAME %}"></script>
+
+<script src="{% static "js/vendor/jquery-1.11.2.min.js" %}"></script>
+<script data-pace-options='{ "ajax": false }' src="{% static "js/vendor/pace.min.js" %}"></script>
+
+<script src="{% static "js/bootstrap.min.js" %}"></script>
+<script src="{% static "js/bootstrap-extras.js" %}"></script>
+<script src="{% static "js/vendor/classie.js" %}"></script>
+<script src="{% static "js/vendor/isotope.pkgd.min.js" %}"></script>
+<script src="{% static "js/vendor/jquery.velocity.min.js" %}"></script>
+<script src="{% static "js/vendor/jquery.kenburnsy.min.js" %}"></script>
+<script src="{% static "js/vendor/textslide.js" %}"></script>
+<script src="{% static "js/vendor/imagesloaded.pkgd.min.js" %}"></script>
+<script src="{% static "js/vendor/tabs.js" %}"></script>
+<script src="{% static "js/ef-slider.js" %}"></script>
+<script src="{% static "js/vendor/owl.carousel.min.js" %}"></script>
+<script src="{% static "js/vendor/jquery.magnific-popup.min.js" %}"></script>
+<script src="{% static "js/vendor/jquery.social-buttons.min.js" %}"></script>
+<script src="{% static "js/vendor/wow.min.js" %}"></script>
+<script src="{% static "js/main.js" %}"></script>
+<script src="{% static "js/ajax.js" %}"></script>
+
+{% block extra_js %}{% endblock %}
+{% endcompress %}
+
+<!--[if lt IE 9]>
+<script src="{% static "js/html5shiv.js" %}"></script>
+<script src="{% static "js/respond.min.js" %}"></script>
+<![endif]-->
 
 {% block footer_js %}
 {% include "includes/footer_scripts.html" %}

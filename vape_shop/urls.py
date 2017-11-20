@@ -22,6 +22,10 @@ urlpatterns = i18n_patterns(
     url("^admin/", include(admin.site.urls)),
 )
 
+urlpatterns += [
+    url("^product_api/", include('product_api.urls')),
+]
+
 if settings.USE_MODELTRANSLATION:
     urlpatterns += [
         url('^i18n/$', set_language, name='set_language'),
