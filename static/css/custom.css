@@ -1,3 +1,44 @@
+/* General */
+select, 
+select:focus,
+select:active,
+select:hover {
+	background-color: #fff;
+    border: none;
+    padding: 5px;
+    outline: none;
+}
+option {
+	background-color: #fff;
+	border: none;
+	outline: none;
+}
+input {
+
+}
+
+/* Navbar */
+.header .cart-box {
+	float: right;
+	margin: 29px 17px 0 0;
+	transition: .8s;
+}
+.header .cart-box.cart-toggled {
+	margin-right: 35%;
+}
+.header .cart-box a{
+	display: block;
+	color: #fff;
+}
+.header .cart-box a:hover{
+	color: #7ac2dc;
+}
+.header .main-menu-indicator .line,
+.header .main-menu-indicator .line::before,
+.header .main-menu-indicator .line::after {
+	background-color: #fff;
+}
+
 .footer-in {
 	padding-bottom: 300px;
 }
@@ -6,11 +47,13 @@
 	margin-bottom: 300px;
 	width: 100%;
 	background-color: #fff;
-	z-index: -1;
+	/*z-index: -1;*/
 }
 .footer {
 	position: fixed;
 	bottom: 0;
+	left: 0;
+	width: 100%;
 	z-index: -2;
 }
 .footer-content p,
@@ -53,6 +96,9 @@
 .product-slider {
 	position: relative;
 }
+.product-slider img{
+	margin: auto;
+}
 .slider-preview {
 	position: absolute;
 	bottom: 20px;
@@ -91,10 +137,13 @@
 .product-popup {
 	position: fixed;
 	top: 0;
+	left: 10px;
 	width: 100%;
 	height: 100%;
 	padding-top: 5%;
-	margin-left: 10px;
+	padding-left: 8px;
+	padding-right: 15px;
+	margin: auto;
 	overflow-y: scroll;
 	z-index: 10;
 }
@@ -113,10 +162,12 @@
     text-align: center;
     margin-left: 20px;
 }
-.go-to {
+.go-to, .wishlist {
 	border: 1px solid #fff;
 	color: #fff;
+	background: none;
 }
 .add-to {
 	background-color: #fff;
+	border: solid;
 }

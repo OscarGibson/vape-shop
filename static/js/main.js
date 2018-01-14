@@ -2,6 +2,8 @@
 
 // Global variables
 window.productimages;
+var price_block = jQuery('#block-price');
+var quantity_block = jQuery('#block-quantity');
 
 //Esc Key 
 $.fn.escape = function(callback) {
@@ -23,6 +25,7 @@ function Navigation() {
         content = document.querySelector('#close-button'),
         openbtn = document.getElementById('open-button'),
         closebtn = document.getElementById('close-button'),
+        cart_box = jQuery('#cart-box'),
         isOpen = false;
 
     function init() {
@@ -46,9 +49,13 @@ function Navigation() {
 
     function toggleMenu() {
         if (isOpen) {
+            cart_box.removeClass('cart-toggled');
             classie.remove(bodyEl, 'show-menu');
         } else {
             classie.add(bodyEl, 'show-menu');
+            setTimeout(function() {
+                cart_box.addClass('cart-toggled');
+            }, 800);
         }
         isOpen = !isOpen;
     }
@@ -229,21 +236,24 @@ function likeEf() {
 
 //Product display
 function getProductData(url) {
-    var product_data, images_data;
+    var product_data, images_data, product_variations;
     jQuery.get(
-        "http://localhost:8000/product_api/"+url, 
+        "/product_api/"+url, 
         [], 
         function(data) {
             if (data.header.code == 200) {
                 try {
                     product_data = JSON.parse(data.body.context);
                     images_data = JSON.parse(data.body.images);
-                    console.log('images', images_data);
+                    product_variations = JSON.parse(data.body.variations2);
                 } catch (err) {
                     console.log(err);
                     return -1;
                 }
                 showProduct(product_data[0].fields,images_data);
+                for (var i = 0; i < product_variations.length; i++) {
+                    console.log('lal',product_variations[i]);
+                }
             }
             else {
                 console.log('status', data.header.code);
@@ -253,7 +263,6 @@ function getProductData(url) {
 }
 
 function showProduct(data, images) {
-    console.log(data);
     var container = jQuery('#product-popup');
     container.find('#product-title').text(data.title);
     container.find('#product-price').text(data.sale_price);
@@ -281,8 +290,6 @@ function showImages(container, images) {
         var image_prew = jQuery('<img>');
         var block_prew = jQuery('<div></div>');
 
-        console.log(images[i].fields.order);
-
         image.attr('src','/static/media/'+images[i].fields.file)
              .addClass('img-responsive','center-block');
 
@@ -291,7 +298,6 @@ function showImages(container, images) {
                   .addClass('img-responsive')
                   .addClass('center-block');
 
-        console.log(image_prew);
         container.find('#product-images')
                  .append(block.append(image));
         container.find('#slider-preview')
@@ -515,6 +521,29 @@ jQuery(window).load(function($) {
     jQuery('#close-button-product').on('click', function() {
         jQuery('.product-popup').removeClass('show-product');
         jQuery('.product-bg').removeClass('show-product');
+    });
+
+    jQuery('#add-cart-api').on('submit', function(e) {
+        e.preventDefault();
+        jQuery.ajax({
+            url:'/product_api/add-to-cart/',
+            type:'POST',
+            data: jQuery(this).serialize(),
+            success:function(response){
+                alert("Added");
+                price_block.text(
+                    price_block
+                    .text()
+                    .replace(/\d+\.*\d*/g, response.total_price)
+                    );
+                quantity_block.text(
+                    quantity_block
+                    .text()
+                    .replace(/\d+\.*\d*/g, response.total_quantity)
+                    );
+            }
+        });
+        return false;
     });
 
 

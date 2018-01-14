@@ -122,37 +122,64 @@
 {% endif %}
 
 <div class="product-bg"></div>
-    <div id="product-popup" class="container product-popup">
-        <div class="close-button-container">
-          <span class="pe-7s-close close-menu" id="close-button-product"></span>
-        </div>
-        <div class="about-studio image-cover" style="background-image: url(img/bg1.jpg)">
+<div id="product-popup" class="container product-popup">
+    <div class="close-button-container">
+      <span class="pe-7s-close close-menu" id="close-button-product"></span>
+    </div>
+    <div class="about-studio image-cover" style="background-image: url(img/bg1.jpg)">
 
-            <div class="col-md-6 fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s">
-                <div class="row product-slider">
-                    <div id="product-images" class="owl-carousel">
-                    </div>
-                    <div id="slider-preview" class="slider-preview">
-                    </div>
+        <div class="col-md-6 fadeInUp" data-wow-duration="0.8s" data-wow-delay="0.3s">
+            <div class="row product-slider">
+                <div id="product-images" class="owl-carousel">
+                </div>
+                <div id="slider-preview" class="slider-preview">
                 </div>
             </div>
+        </div>
 
-            <div class="col-md-6">
-                <div class="product-content">
-                    <h1 id="product-title">SUPER PRODUCT</h1>
-                    <hr>
-                    <h2 id="product-price">$125</h2>
-                    <h2 id="product-old-price">
-                        <span class="old-price">$125</span>
-                    </h2>
-                    <p id="product-description">
-                    </p>
-                    <a class="add-to cart" href="">ADD</a>
-                    <a class="go-to cart" href="">Cart</a>
-                    
-                </div>
+        <div class="col-md-6">
+            <div class="product-content">
+                <h1 id="product-title">SUPER PRODUCT</h1>
+                <hr>
+                <h2 id="product-price">$125</h2>
+                <h2 id="product-old-price">
+                    <span class="old-price">$125</span>
+                </h2>
+                <p id="product-description">
+                </p>
+
+<form id="add-cart-api">{% csrf_token %}
+    <div class="options-block">
+        <label for="quantity">Quantity</label>
+        <input id="quantity" type="number" name="quantity" required>
+
+        <label for="size">Size</label>
+        <select id="size" name="option1" required>
+            <option value="Small" selected="selected">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+        </select>
+
+        <label for="color">Color</label>
+        <select id="color" name="option2" required>
+            <option value="Red" selected="selected">Red</option>
+            <option value="Blue">Blue</option>
+            <option value="Green">Green</option>
+        </select>
+    </div>
+
+    <input type="submit" class="add-to cart" name="add_cart" value="{% trans "Add" %}">
+    {% if settings.SHOP_USE_WISHLIST %}
+    <input type="submit" class="wishlist cart" name="add_wishlist" value="{% trans "Save for later" %}">
+    {% else %}
+    <a class="go-to cart" href="">Cart</a>
+    {% endif %}
+</form>
+
+                
             </div>
         </div>
     </div>
+</div>
     
 {% endblock %}

@@ -39,6 +39,7 @@
 <link rel="stylesheet" href="{% static 'css/iconmoon.css' %}">
 <link rel="stylesheet" href="{% static 'css/et-line.css' %}">
 <link rel="stylesheet" href="{% static 'css/ionicons.css' %}">
+<link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
 
 <!-- Magnific PopUp -->
 <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
@@ -70,90 +71,137 @@
 {% block extra_head %}{% endblock %}
 </head>
 
-<body id="{% block body_id %}body{% endblock %}">
+<body id="{% block body_id %}body{% endblock %}" class="footer-in">
 
 {% include 'navbar/top-navbar.html' %}
 
-<div class="container main-top">
-{% nevercache %}
-{% if messages %}
-<div class="messages">
-{% for message in messages %}
-<div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
-    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    {{ message }}
-</div>
-{% endfor %}
-</div>
-{% endif %}
-{% endnevercache %}
-
-<h1>{% block title %}{% endblock %}</h1>
-<hr>
-<!--
-<ul class="breadcrumb">
-{% spaceless %}
-{% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
-{% endspaceless %}
-</ul>
--->
-</div>
-
-<div class="container">
-<div class="row">
-
-<!--
-<div class="col-md-2 left">
-    {% block left_panel %}
-    <div class="panel panel-default tree">{% page_menu "pages/menus/tree.html" %}</div>
-    {% endblock %}
-</div>
--->
-
-<div class="col-md-12 middle">
-    {% block main %}{% endblock %}
-</div>
-<!--
-<div class="col-md-3 right">
+<div class="wrapper">
+    <div class="container main-top">
     {% nevercache %}
-    {% include "includes/language_selector.html" %}
-    {% include "includes/user_panel.html" %}
+    {% if messages %}
+    <div class="messages">
+    {% for message in messages %}
+    <div class="alert alert-dismissable alert-{{ message.tags }}" data-alert="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+    </div>
+    {% endif %}
     {% endnevercache %}
-    <div class="panel panel-default">
-    <div class="panel-body">
-    {% block right_panel %}
-    {% ifinstalled mezzanine.twitter %}
-    {% include "twitter/tweets.html" %}
-    {% endifinstalled %}
-    {% endblock %}
+
+    <h1>{% block title %}{% endblock %}</h1>
+    <hr>
+    <!--
+    <ul class="breadcrumb">
+    {% spaceless %}
+    {% block breadcrumb_menu %}{% page_menu "pages/menus/breadcrumb.html" %}{% endblock %}
+    {% endspaceless %}
+    </ul>
+    -->
+    </div>
+
+    <div class="container">
+    <div class="row">
+
+    <!--
+    <div class="col-md-2 left">
+        {% block left_panel %}
+        <div class="panel panel-default tree">{% page_menu "pages/menus/tree.html" %}</div>
+        {% endblock %}
+    </div>
+    -->
+
+    <div class="col-md-12 middle">
+        {% block main %}{% endblock %}
+    </div>
+    <!--
+    <div class="col-md-3 right">
+        {% nevercache %}
+        {% include "includes/language_selector.html" %}
+        {% include "includes/user_panel.html" %}
+        {% endnevercache %}
+        <div class="panel panel-default">
+        <div class="panel-body">
+        {% block right_panel %}
+        {% ifinstalled mezzanine.twitter %}
+        {% include "twitter/tweets.html" %}
+        {% endifinstalled %}
+        {% endblock %}
+        </div>
+        </div>
+    </div>
+    -->
     </div>
     </div>
-</div>
--->
-</div>
+
+    <footer>
+    <div class="container">
+    <!-- {% page_menu "pages/menus/footer.html" %} -->
+
+       <!--  <div class="row">
+        <p class="site-info text-center">
+            {% trans "Powered by" %}
+            <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},
+            <a href="http://cartridge.jupo.org">Cartridge</a>{% endifinstalled %}
+            {% trans "and" %}
+            <a href="http://www.djangoproject.com">Django</a>
+            <span class="separator">|</span>
+            {% trans "Theme by" %} <a target="_blank" href="http://getbootstrap.com">Bootstrap</a>
+            {% ifinstalled mezzanine.mobile %}
+            <span class="separator">|</span>
+            <a href="{% url "set_device" "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
+            {% endifinstalled %}
+        </p>
+        </div> -->
+        <div class="footer margin-top" 
+        style="background-image: url('{% static 'img/footer_bg.jpg' %}');">
+            <div class="container">
+                <div class="row">
+                        <div class="col-md-2 col-sm-4 col-xs-12">
+                            <div class="footer-inner">
+                                <div class="footer-content">
+                                    <h4>Vape Shop</h4>
+                                        <address>City 35 AM <br>Street 1395 p.n <br>your Country</address>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-2 col-md-push-8 col-sm-4 col-xs-12">
+                            <div class="footer-inner">
+                                <div class="footer-content">
+                                   <h4>CONTACT INFO</h4>
+                                    <p>
+                                        T:003 124 115 <br>
+                                        E:info@mail.com <br>
+                                        W:www.website.com
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4 col-sm-4 col-xs-12">
+                            <div class="footer-inner">
+                                <div class="footer-content">
+                                <ul class="social-media">
+                                    <li><a href="#"><i class="iconmoon-facebook"></i></a></li>
+                                    <li><a href="#"><i class="iconmoon-twitter"></i></a></li>
+                                    <li><a href="#"><i class="iconmoon-flickr2"></i></a></li>
+                                    <li><a href="#"><i class="iconmoon-dribbble3"></i></a></li>
+                                    <li><a href="#"><i class="iconmoon-pinterest"></i></a></li>
+                                    <li><a href="#"><i class="iconmoon-linkedin2"></i></a></li>
+                                </ul>
+                                <span class="copyright-mark">&copy; 2015 OAK, ALL RIGHTS RESERVED</span>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </footer>
 </div>
 
-<footer>
-<div class="container">
-{% page_menu "pages/menus/footer.html" %}
-
-<div class="row">
-<p class="site-info text-center">
-    {% trans "Powered by" %}
-    <a href="http://mezzanine.jupo.org">Mezzanine</a>{% ifinstalled cartridge.shop %},
-    <a href="http://cartridge.jupo.org">Cartridge</a>{% endifinstalled %}
-    {% trans "and" %}
-    <a href="http://www.djangoproject.com">Django</a>
-    <span class="separator">|</span>
-    {% trans "Theme by" %} <a target="_blank" href="http://getbootstrap.com">Bootstrap</a>
-    {% ifinstalled mezzanine.mobile %}
-    <span class="separator">|</span>
-    <a href="{% url "set_device" "mobile" %}?next={{ request.path }}">{% trans "View Mobile Site" %}</a>
-    {% endifinstalled %}
-</p>
-</div>
-</div>
-</footer>
 
 <a href="javascript:void(0)" class="scroll-top" id="scroll-top"><i class="pe-7s-angle-up"></i></a>
 

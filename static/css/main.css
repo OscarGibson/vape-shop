@@ -2905,12 +2905,12 @@ input[type="text"] {
 
 /* =Footer
 -------------------------------------------------------------- */
-.footer {
+/*.footer {
     width: 100%;
     float: left;
     background: #f4f4f4;
     min-height: 300px;
-}
+}*/
 .footer-inner {
     height: 300px;
     display: table;
