@@ -142,30 +142,30 @@
                 <h1 id="product-title">SUPER PRODUCT</h1>
                 <hr>
                 <h2 id="product-price">$125</h2>
-                <h2 id="product-old-price">
-                    <span class="old-price">$125</span>
+                <h2>
+                    <small class="old-price">
+                    <del id="product-old-price"><del>
+                    </small>
                 </h2>
                 <p id="product-description">
                 </p>
 
 <form id="add-cart-api">{% csrf_token %}
     <div class="options-block">
-        <label for="quantity">Quantity</label>
-        <input id="quantity" type="number" name="quantity" required>
+        <div>
+           <label for="quantity">Quantity</label>
+            <input class="options-quantity" id="quantity" type="number" name="quantity" required value="1" min="1" max="102">
+        </div>
 
-        <label for="size">Size</label>
-        <select id="size" name="option1" required>
-            <option value="Small" selected="selected">Small</option>
+        <div>
+            <label id="product-option-label" for="product-option">Option</label>
+            <select class="product-option" id="product-option" name="option1" required>
+            <!-- <option value="Small" selected="selected">Small</option>
             <option value="Medium">Medium</option>
-            <option value="Large">Large</option>
-        </select>
+            <option value="Large">Large</option> -->
+            </select>
+        </div>
 
-        <label for="color">Color</label>
-        <select id="color" name="option2" required>
-            <option value="Red" selected="selected">Red</option>
-            <option value="Blue">Blue</option>
-            <option value="Green">Green</option>
-        </select>
     </div>
 
     <input type="submit" class="add-to cart" name="add_cart" value="{% trans "Add" %}">

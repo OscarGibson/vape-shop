@@ -11,9 +11,14 @@ import json
 from cartridge.shop.models import Product, ProductVariation
 from cartridge.shop.utils import recalculate_cart
 # Create your views here.
+from cartridge.shop.models import ProductOption
+from vape_shop.settings import SHOP_OPTION_TYPE_CHOICES
+
+from django.views.decorators.http import require_http_methods
 
 
-def productApi(request, slug):
+@require_http_methods(["GET"])
+def product_api(request, slug):
 	data, body, header = {}, {}, {}
 
 	try:
@@ -21,9 +26,10 @@ def productApi(request, slug):
 	except Exception as e:
 		raise e
 	fields = [f.name for f in ProductVariation.option_fields()]
-	body['variations2'] = serializers.serialize('json', product.variations.all());
-	body['variations'] = json.dumps([dict([(f, getattr(v, f))
-        for f in fields + ["sku", "image_id"]]) for v in product.variations.all()])
+	body['variations'] = [p.options()[0] for p in product.variations.all()];
+	body['variations_name'] = SHOP_OPTION_TYPE_CHOICES[0][1]
+	# body['variations'] = json.dumps([dict([(f, getattr(v, f))
+ #        for f in fields + ["sku", "image_id"]]) for v in product.variations.all()])
 	body['context'] = serializers.serialize('json', [product])
 	body['images'] = serializers.serialize('json', product.images.all())
 	#body['context'] = filterData(product)
@@ -32,6 +38,10 @@ def productApi(request, slug):
 
 	data['header'] = header
 	data['body'] = body
+
+	# for p in ProductOption.objects.all():
+	# 	print(p.name, SHOP_OPTION_TYPE_CHOICES[p.type-1][1])
+	print(body['variations'])
 
 	return HttpResponse(json.dumps(data), content_type="application/json")
 
@@ -48,13 +58,19 @@ def filterData(product):
 	return new_product
 
 
-def addToCart(request):
+
+@require_http_methods(["POST"])
+def add_to_cart(request):
+
+	if not request.method == 'POST':
+		print('AAAA')
+		return HttpResponse({}, status= 400)
 
 	slug = 'django-pony'
-	print(request.method == 'POST')
+	print(slug)
 
-	published_products = Product.objects.published(for_user=request.user)
-	product = get_object_or_404(published_products, slug=slug)
+	published_products = Product.objects.published(for_user= request.user)
+	product = get_object_or_404(published_products, slug= slug)
 	fields = [f.name for f in ProductVariation.option_fields()]
 	variations = product.variations.all()
 	variations_json = json.dumps([dict([(f, getattr(v, f))
@@ -82,7 +98,7 @@ def addToCart(request):
 				sku = add_product_form.variation.sku
 				if sku not in skus:
 					skus.append(sku)
-				#info(request, _("Item added to wishlist"))
+				#info(requesadd_to_cartt, _("Item added to wishlist"))
 				response = redirect("shop_wishlist")
 				set_cookie(response, "wishlist", ",".join(skus))
 				#return response

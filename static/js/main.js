@@ -236,24 +236,35 @@ function likeEf() {
 
 //Product display
 function getProductData(url) {
-    var product_data, images_data, product_variations;
+    var product_data, images_data, product_variations, product_variations_name;
     jQuery.get(
-        "/product_api/"+url, 
+        "/product-api/"+url, 
         [], 
         function(data) {
             if (data.header.code == 200) {
                 try {
                     product_data = JSON.parse(data.body.context);
                     images_data = JSON.parse(data.body.images);
-                    product_variations = JSON.parse(data.body.variations2);
+                    // product_variations2 = JSON.parse(data.body.variations2);
+                    product_variations = data.body.variations;
+                    product_variations_name = data.body.variations_name;
                 } catch (err) {
                     console.log(err);
                     return -1;
                 }
-                showProduct(product_data[0].fields,images_data);
+
+                showProduct(
+                    product_data[0].fields,
+                    images_data,
+                    product_variations,
+                    product_variations_name
+                    );
                 for (var i = 0; i < product_variations.length; i++) {
-                    console.log('lal',product_variations[i]);
+                    console.log(product_variations[i]);
                 }
+                // for (var i = 0; i < product_variations2.length; i++) {
+                //     console.log('lal2',product_variations2[i]);
+                // }
             }
             else {
                 console.log('status', data.header.code);
@@ -262,12 +273,29 @@ function getProductData(url) {
         });
 }
 
-function showProduct(data, images) {
+function showProduct(data, images, variations, var_name) {
     var container = jQuery('#product-popup');
     container.find('#product-title').text(data.title);
-    container.find('#product-price').text(data.sale_price);
-    container.find('#product-old-price').text(data.unit_price);
+
+    if (data.sale_price) {
+        container.find('#product-price').text(data.sale_price);
+        container.find('#product-old-price').text(data.unit_price);
+    }
+    else {
+        container.find('#product-price').text(data.unit_price);
+    }
+
     container.find('#product-description').text(data.description);
+    container.find('#product-option-label').text(var_name);
+
+    let options = container.find('#product-option');
+    options.html('').attr('name', var_name);
+
+    for (var i = 0; i < variations.length; i++) {
+        options.append('<option value="'+i+'">'+variations[i]+'</option>');
+    }
+
+    console.log('data', data);
 
     destroyProductSlider();
     showImages(container, images);
@@ -287,21 +315,22 @@ function showImages(container, images) {
     for (var i = 0; i < images.length; i++) {
         var image = jQuery('<img>');
         var block = jQuery('<div></div>');
-        var image_prew = jQuery('<img>');
-        var block_prew = jQuery('<div></div>');
+        // var image_prew = jQuery('<img>');
+        var block_prew = jQuery('<div class="block-prew-item"></div>');
 
         image.attr('src','/static/media/'+images[i].fields.file)
              .addClass('img-responsive','center-block');
 
-        block_prew.attr('data-target',images[i].fields._order)
-        image_prew.attr('src','/static/media/'+images[i].fields.file)
-                  .addClass('img-responsive')
-                  .addClass('center-block');
+        block_prew.attr('data-target',images[i].fields._order);
+        block_prew.attr('style', 'background-image: url("/static/media/'+images[i].fields.file+'")');
+        // image_prew.attr('src','/static/media/'+images[i].fields.file)
+        //           .addClass('img-responsive')
+        //           .addClass('center-block');
 
         container.find('#product-images')
                  .append(block.append(image));
         container.find('#slider-preview')
-                 .append(block_prew.append(image_prew));
+                 .append(block_prew);
 
     }
 }
@@ -526,9 +555,10 @@ jQuery(window).load(function($) {
     jQuery('#add-cart-api').on('submit', function(e) {
         e.preventDefault();
         jQuery.ajax({
-            url:'/product_api/add-to-cart/',
             type:'POST',
+            url:'/product-api/add/',
             data: jQuery(this).serialize(),
+            contentType: "application/x-www-form-urlencoded",
             success:function(response){
                 alert("Added");
                 price_block.text(

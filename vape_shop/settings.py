@@ -187,6 +187,7 @@ LANGUAGE_CODE = "en"
 LANGUAGES = (
     ('en', _('English')),
     ('uk', _('Ukrainian')),
+    # ('ru', _('Russian')),
 )
 
 # A boolean that turns on/off debug mode. When set to ``True``, stack traces

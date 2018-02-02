@@ -20,11 +20,8 @@ urlpatterns = i18n_patterns(
     # Change the admin prefix here to use an alternate URL for the
     # admin interface, which would be marginally more secure.
     url("^admin/", include(admin.site.urls)),
+    url("^product-api/", include('product_api.urls')),
 )
-
-urlpatterns += [
-    url("^product_api/", include('product_api.urls')),
-]
 
 
 if settings.USE_MODELTRANSLATION:

@@ -95,9 +95,18 @@ input {
 /* Product */
 .product-slider {
 	position: relative;
+	margin-left: 0;
 }
 .product-slider img{
 	margin: auto;
+}
+.product-slider .owl-item img {
+	height: 500px;
+}
+.product-slider .slider-preview .block-prew-item {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .slider-preview {
 	position: absolute;
@@ -146,6 +155,16 @@ input {
 	margin: auto;
 	overflow-y: scroll;
 	z-index: 10;
+}
+.options-block label{
+	width: 100px;
+	color: #fff;
+}
+.options-block .options-quantity {
+	width: 100px;
+}
+.options-block .product-option {
+	width: 100px;
 }
 .product-popup:not(.show-product),
 .product-bg:not(.show-product) {
