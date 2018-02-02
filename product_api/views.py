@@ -28,6 +28,7 @@ def product_api(request, slug):
 	fields = [f.name for f in ProductVariation.option_fields()]
 	body['variations'] = [p.options()[0] for p in product.variations.all()];
 	body['variations_name'] = SHOP_OPTION_TYPE_CHOICES[0][1]
+	print(SHOP_OPTION_TYPE_CHOICES)
 	# body['variations'] = json.dumps([dict([(f, getattr(v, f))
  #        for f in fields + ["sku", "image_id"]]) for v in product.variations.all()])
 	body['context'] = serializers.serialize('json', [product])
@@ -59,15 +60,16 @@ def filterData(product):
 
 
 
-@require_http_methods(["POST"])
+@require_http_methods(["POST", "GET"])
 def add_to_cart(request):
 
 	if not request.method == 'POST':
 		print('AAAA')
 		return HttpResponse({}, status= 400)
 
-	slug = 'django-pony'
-	print(slug)
+	print(request.POST)
+
+	slug = request.POST.get('product-slug')
 
 	published_products = Product.objects.published(for_user= request.user)
 	product = get_object_or_404(published_products, slug= slug)

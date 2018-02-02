@@ -20,23 +20,23 @@ from django.utils.translation import ugettext_lazy as _
 # SHOP_CARD_TYPES = ("Mastercard", "Visa", "Diners", "Amex")
 
 # Setting to turn on featured images for shop categories. Defaults to False.
-SHOP_CATEGORY_USE_FEATURED_IMAGE = True
+# SHOP_CATEGORY_USE_FEATURED_IMAGE = True
 
 # Set an alternative OrderForm class for the checkout process.
 # SHOP_CHECKOUT_FORM_CLASS = 'cartridge.shop.forms.OrderForm'
 
 # If True, the checkout process is split into separate
 # billing/shipping and payment steps.
-SHOP_CHECKOUT_STEPS_SPLIT = False
+# SHOP_CHECKOUT_STEPS_SPLIT = True
 
 # If True, the checkout process has a final confirmation step before
 # completion.
-SHOP_CHECKOUT_STEPS_CONFIRMATION = False
+# SHOP_CHECKOUT_STEPS_CONFIRMATION = True
 
 # Controls the formatting of monetary values accord to the locale
 # module in the python standard library. If an empty string is
 # used, will fall back to the system's locale.
-# SHOP_CURRENCY_LOCALE = "UAH"
+# SHOP_CURRENCY_LOCALE = ""
 
 # Dotted package path and name of the function that
 # is called on submit of the billing/shipping checkout step. This
@@ -55,7 +55,6 @@ SHOP_CHECKOUT_STEPS_CONFIRMATION = False
 # is called on submit of the payment checkout step. This is where
 # integration with a payment gateway should be implemented.
 # SHOP_HANDLER_PAYMENT = "cartridge.shop.checkout.default_payment_handler"
-# SHOP_HANDLER_PAYMENT = ""
 
 # Sequence of value/name pairs for order statuses.
 # SHOP_ORDER_STATUS_CHOICES = (
@@ -66,20 +65,19 @@ SHOP_CHECKOUT_STEPS_CONFIRMATION = False
 # Sequence of value/name pairs for types of product options,
 # eg Size, Colour. NOTE: Increasing the number of these will
 # require database migrations!
-SHOP_OPTION_TYPE_CHOICES = (
-    (1, "Size"),
-    (2, "Colour"),
-    #(3, "Taste"),
-)
+# SHOP_OPTION_TYPE_CHOICES = (
+#     (1, "Size"),
+#     (2, "Colour"),
+# )
 
 # Sequence of indexes from the SHOP_OPTION_TYPE_CHOICES setting that
 # control how the options should be ordered in the admin,
 # eg for "Colour" then "Size" given the above:
-SHOP_OPTION_ADMIN_ORDER = (2, 1)
+# SHOP_OPTION_ADMIN_ORDER = (2, 1)
 
 
 ######################
-# MEZZANINE SETTINGS #then
+# MEZZANINE SETTINGS #
 ######################
 
 # The following settings are already defined with default values in
@@ -116,11 +114,11 @@ SHOP_OPTION_ADMIN_ORDER = (2, 1)
 # menus a page should appear in. Note that if a menu template is used
 # that doesn't appear in this setting, all pages will appear in it.
 
-PAGE_MENU_TEMPLATES = (
-    (1, _("Top navigation bar"), "pages/menus/dropdown.html"),
-    (2, _("Left-hand tree"), "pages/menus/tree.html"),
-    (3, _("Footer"), "pages/menus/footer.html"),
-)
+# PAGE_MENU_TEMPLATES = (
+#     (1, _("Top navigation bar"), "pages/menus/dropdown.html"),
+#     (2, _("Left-hand tree"), "pages/menus/tree.html"),
+#     (3, _("Footer"), "pages/menus/footer.html"),
+# )
 
 # A sequence of fields that will be injected into Mezzanine's (or any
 # library's) models. Each item in the sequence is a four item sequence.
@@ -157,7 +155,7 @@ PAGE_MENU_TEMPLATES = (
 
 # If True, the django-modeltranslation will be added to the
 # INSTALLED_APPS setting.
-USE_MODELTRANSLATION = True
+USE_MODELTRANSLATION = False
 
 
 ########################
@@ -187,8 +185,6 @@ LANGUAGE_CODE = "en"
 # Supported languages
 LANGUAGES = (
     ('en', _('English')),
-    # ('uk', _('Ukrainian')),
-    # ('ru', _('Russian')),
 )
 
 # A boolean that turns on/off debug mode. When set to ``True``, stack traces
@@ -203,7 +199,7 @@ SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
-USE_I18N = True
+USE_I18N = False
 
 AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 
@@ -326,9 +322,6 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     # "mezzanine.accounts",
     # "mezzanine.mobile",
-
-    #Custom apps
-    'product_api',
 )
 
 
@@ -418,17 +411,3 @@ except ImportError:
     pass
 else:
     set_dynamic_settings(globals())
-
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-# EMAIL_USE_SSL = ''
-# EMAIL_TIMEOUT = ''
-# EMAIL_SSL_KEYFILE = ''
-# EMAIL_SSL_CERTFILE = ''
-
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'oneostap@gmail.com'
-EMAIL_HOST_PASSWORD = 'greedisgood (99999)'
-EMAIL_PORT = 587

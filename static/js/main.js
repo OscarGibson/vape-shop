@@ -288,11 +288,13 @@ function showProduct(data, images, variations, var_name) {
     container.find('#product-description').text(data.description);
     container.find('#product-option-label').text(var_name);
 
+    container.find('#product-slug').val(data.slug);//data.slug;
+
     let options = container.find('#product-option');
-    options.html('').attr('name', var_name);
+    options.html('').attr('name', "option1");
 
     for (var i = 0; i < variations.length; i++) {
-        options.append('<option value="'+i+'">'+variations[i]+'</option>');
+        options.append('<option value="'+variations[i]+'">'+variations[i]+'</option>');
     }
 
     console.log('data', data);
@@ -554,9 +556,10 @@ jQuery(window).load(function($) {
 
     jQuery('#add-cart-api').on('submit', function(e) {
         e.preventDefault();
+        console.log('form data: ', jQuery(this).serialize());
         jQuery.ajax({
             type:'POST',
-            url:'/product-api/add/',
+            url:'/en/product-api/add/',
             data: jQuery(this).serialize(),
             contentType: "application/x-www-form-urlencoded",
             success:function(response){

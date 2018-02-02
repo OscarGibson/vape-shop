@@ -151,6 +151,7 @@
                 </p>
 
 <form id="add-cart-api">{% csrf_token %}
+    <input type="hidden" name="product-slug" id="product-slug">
     <div class="options-block">
         <div>
            <label for="quantity">Quantity</label>
