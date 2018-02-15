@@ -234,6 +234,7 @@ def checkout_steps(request, form_class=OrderForm, extra_context=None):
     step = int(request.POST.get("step", None) or
                initial.get("step", None) or
                checkout.CHECKOUT_STEP_FIRST)
+    # print(step, initial)
     form = form_class(request, step, initial=initial)
     data = request.POST
     checkout_errors = []

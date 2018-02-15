@@ -404,6 +404,16 @@ class Category(Page, RichText):
 @python_2_unicode_compatible
 class Order(SiteRelated):
 
+    TYPE_OF_DELIVERY = (
+        (0, "Nova Poshta"),
+        (1, "Self-checkout")
+        )
+
+    TYPE_OF_PAYMENT = (
+        (0, "Cash on delivery"),
+        (1, "Bank transaction")
+        )
+
     billing_detail_first_name = CharField(_("First name"), max_length=100)
     billing_detail_last_name = CharField(_("Last name"), max_length=100)
     # billing_detail_street = CharField(_("Street"), max_length=100)
@@ -415,11 +425,21 @@ class Order(SiteRelated):
     billing_detail_email = models.EmailField(_("Email"), max_length=254)
     # shipping_detail_first_name = CharField(_("First name"), max_length=100)
     # shipping_detail_last_name = CharField(_("Last name"), max_length=100)
+
+    shipping_detail_delivery = CharField(_("Type of delivery"), max_length= 32, 
+                                        choices= TYPE_OF_DELIVERY, default= 0)
+
+    shipping_detail_payment = CharField(_("Type of payment"), max_length= 32,
+                                        choices= TYPE_OF_PAYMENT, default= 1)
+
     shipping_detail_street = CharField(_("Street"), max_length=100)
-    shipping_detail_city = CharField(_("City/Suburb"), max_length=100)
+    shipping_detail_city = CharField(_("City/Suburb"), max_length=100, choices= (''))
     shipping_detail_state = CharField(_("State/Region"), max_length=100)
     # shipping_detail_postcode = CharField(_("Zip/Postcode"), max_length=10)
     shipping_detail_country = CharField(_("Country"), max_length=100)
+
+    shipping_detail_np = CharField(_("NovaPoshta department"), max_length= 64, 
+                                    null= True, blank= True)
     # shipping_detail_phone = CharField(_("Phone"), max_length=20)
     additional_instructions = models.TextField(_("Additional instructions"),
                                                blank=True)

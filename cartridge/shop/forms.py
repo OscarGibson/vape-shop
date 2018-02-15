@@ -300,9 +300,9 @@ class OrderForm(FormsetForm, DiscountForm):
 
     use_required_attribute = False
 
-    step = forms.IntegerField(widget=forms.HiddenInput())
-    same_billing_shipping = forms.BooleanField(required=False, initial=True,
-        label=_("My delivery details are the same as my billing details"))
+    # step = forms.IntegerField(widget=forms.HiddenInput())
+    # same_billing_shipping = forms.BooleanField(required=False, initial=True,
+        # label=_("My delivery details are the same as my billing details"))
     remember = forms.BooleanField(required=False, initial=True,
         label=_("Remember my address for next time"))
     card_name = forms.CharField(label=_("Cardholder name"))
@@ -323,6 +323,8 @@ class OrderForm(FormsetForm, DiscountForm):
                    f.name.startswith("billing_detail") or
                    f.name.startswith("shipping_detail")] +
                    ["additional_instructions", "discount_code"])
+        # print('--- FIELDS ---')
+        # print(fields)
 
     def __init__(
             self, request, step, data=None, initial=None, errors=None,
@@ -403,6 +405,7 @@ class OrderForm(FormsetForm, DiscountForm):
                 bill_field = field.replace("shipping_detail", "billing_detail")
                 if field.startswith("shipping_detail") and bill_field in data:
                     data[field] = data[bill_field]
+
         return data
 
     def clean_card_expiry_year(self):

@@ -33,6 +33,10 @@ SHOP_CHECKOUT_STEPS_SPLIT = False
 # completion.
 SHOP_CHECKOUT_STEPS_CONFIRMATION = False
 
+######################
+SHOP_PAYMENT_STEP_ENABLED = False
+# SHOP_CATEGORY_USE_FEATURED_IMAGE = True
+
 # Controls the formatting of monetary values accord to the locale
 # module in the python standard library. If an empty string is
 # used, will fall back to the system's locale.
